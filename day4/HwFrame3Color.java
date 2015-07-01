@@ -1,0 +1,6 @@
+package day4;
+
+public enum HwFrame3Color {
+    RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE, BLACK, WHITE,
+    GRAY, BROWN, GOLD, SEPIA, SILVER, INDIGO, VIOLET, BRONZE;
+}
