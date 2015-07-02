@@ -25,4 +25,17 @@ public class Student {
     public void setSecondName(String secondName) {
         this.secondName = secondName;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Student){
+            Student s =(Student) obj;
+            if(name!=null && name.equals(s.getName())
+                    && secondName!=null && secondName.equals(s.getSecondName())){
+                return true;
+            }
+        }
+        return false;
+
+    }
 }

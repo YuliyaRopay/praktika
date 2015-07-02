@@ -35,6 +35,11 @@ public class Classroom {
         return false;
     }
 
+    public boolean isPresent2(Student student){
+
+        return students.contains(student);
+    }
+
     public void printStudentInfo(){
         for(int i=0;i<students.size();i++){
             System.out.println(i+". "+students.get(i).getName()+"  "+students.get(i).getSecondName());
