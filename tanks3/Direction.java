@@ -1,4 +1,4 @@
-package tanks2;
+package tanks3;
 
 public enum Direction {
     // 1 - top, 2 - bottom, 3 - left, 4 - right

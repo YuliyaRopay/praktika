@@ -1,8 +1,9 @@
 package tanks2;
 
-public class TankOld {
+public class Tank {
 
     private Direction direction;
+    private FlagFire flagFire;
 
     private int x;
     private int y;
@@ -11,17 +12,18 @@ public class TankOld {
     private ActionField actionField;
     private BattleField battleField;
 
-    public TankOld(ActionField af, BattleField bf){
-        this(af,bf,128, 512, Direction.Top);
+    public Tank(ActionField af, BattleField bf){
+        this(af,bf,0, 512, Direction.Top);
 
     }
 
-    public TankOld(ActionField af, BattleField bf, int x, int y, Direction direction){
+    public Tank(ActionField af, BattleField bf, int x, int y, Direction direction){
         this.actionField=af;
         this.battleField=bf;
         this.x=x;
         this.y=y;
         this.direction=direction;
+        this.flagFire=FlagFire.DoNotFire;
     }
 
     public Direction getDirection() {
@@ -56,6 +58,14 @@ public class TankOld {
         this.speed = speed;
     }
 
+    public FlagFire getFlagFire() {
+        return flagFire;
+    }
+
+    public void setFlagFire(FlagFire flagFire) {
+        this.flagFire = flagFire;
+    }
+
     public void destroy(){
         setX(-100);
         setY(-100);
@@ -72,29 +82,39 @@ public class TankOld {
 
     public void turn(Direction direction) throws Exception{
         this.direction=direction;
-       // actionField.processTurn(this);
+        actionField.processTurn(this);
     }
 
     public void move()throws Exception{
-       // actionField.processMove(this);
+        actionField.processMove(this);
     }
 
     public void fire() throws Exception{
         Bullet bullet=new Bullet((x+25),(y+25),direction);
-        //actionField.processFire(bullet);
+        actionField.processFire(bullet);
     }
 
     public void moveRandom() throws Exception{
-        //actionField.processMoveRandom(this);
+        actionField.processMoveRandom(this);
     }
 
     public void moveToQuadrant(int v, int h) throws Exception{
-        //actionField.processMoveToQuadrant(this,v,h);
+        actionField.processMoveToQuadrant(this,v,h);
     }
 
-    /*
+    public void cleanRandom() throws Exception{
+        setFlagFire(FlagFire.Fire);
+        actionField.processCleanRandom(this);
+    }
+
+    public void runAndFire() throws Exception{
+        Bullet bullet=new Bullet((x+25),(y+25),direction);
+        actionField.processRunAndFire(this);
+    }
+
     public void clean ()  throws Exception{
-
+        setFlagFire(FlagFire.Fire);
+        actionField.processClean(this);
     }
-     */
+
 }

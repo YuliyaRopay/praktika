@@ -1,4 +1,4 @@
-package tanks2;
+package tanks3;
 
 public class Launcher {
 

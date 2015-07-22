@@ -1,4 +1,4 @@
-package tanks2;
+package tanks4Refactoring;
 
 public class Launcher {
 

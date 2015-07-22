@@ -36,7 +36,6 @@ public class Classroom {
     }
 
     public boolean isPresent2(Student student){
-
         return students.contains(student);
     }
 

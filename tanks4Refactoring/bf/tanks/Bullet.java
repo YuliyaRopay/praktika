@@ -1,16 +1,25 @@
-package tanks2;
+package tanks4Refactoring.bf.tanks;
 
-public class Bullet {
+import tanks4Refactoring.bf.Destroyable;
+import tanks4Refactoring.Direction;
+import tanks4Refactoring.bf.Drawable;
+
+import java.awt.*;
+
+public class Bullet implements Drawable, Destroyable {
 
     private int speed=10;
     private int x;
     private int y;
     private Direction direction;
 
+    private boolean destroyed;
+
     public Bullet(int x, int y, Direction direction) {
         this.x = x;
         this.y = y;
         this.direction = direction;
+        this.destroyed = false;
     }
 
     public int getSpeed() {
@@ -46,7 +55,20 @@ public class Bullet {
     }
 
     public void destroy(){
-        this.x=-100;
-        this.y=-100;
+        destroyed = true;
+    }
+
+
+    @Override
+    public boolean isDestroyed() {
+        return destroyed;
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        if (!destroyed) {
+            g.setColor(new Color(255, 255, 0));
+            g.fillRect(this.x, this.y, 14, 14);
+        }
     }
 }

@@ -1,7 +1,7 @@
-package tanks2;
+package tanks3;
 
 
-public class BT7 extends Tank {
+public class BT7 extends AbstractTank {
 
     public BT7(ActionField af, BattleField bf){
         super(af, bf);

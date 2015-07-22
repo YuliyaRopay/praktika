@@ -1,4 +1,4 @@
-package tanks2;
+package tanks3;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,9 +18,9 @@ public class ActionField extends JPanel {
     private final int BF_WIDTH = QUADRANT_SIZE*QUADRANT_COUNT_X;
     private final int BF_HEIGHT = QUADRANT_SIZE*QUADRANT_COUNT_Y;
 
-    private Tank tank;
-   // private T34 defender;
-    private Tank aggressor;
+    //private Tank tank;
+    private T34 defender;
+    private Tiger aggressor;
     private Bullet bullet;
     private BattleField battleField;
 
@@ -30,8 +30,8 @@ public class ActionField extends JPanel {
 
         battleField=new BattleField();
         bullet=new Bullet(-100,-100, Direction.Non);
-        tank=new Tank(this,battleField);
-        //defender=new T34(this,battleField);
+        //tank=new Tank(this,battleField);
+        defender=new T34(this,battleField);
 
         String location = battleField.getAggressorLocation();
         aggressor=new Tiger(this,battleField,
@@ -82,22 +82,26 @@ public class ActionField extends JPanel {
             }
         }
 
+        /*
         g.setColor(new Color(0, 255, 0));
-        g.fillRect(tank.getX(), tank.getY(), 64, 64);
+        g.fillRect(defender.getX(), defender.getY(), 64, 64);
 
         g.setColor(new Color(255, 0, 0));
         // 1 - top, 2 - bottom, 3 - left, 4 - right
-        if (tank.getDirection() == Direction.Top) {
-            g.fillRect(tank.getX() + 20, tank.getY(), 24, 34);
-        } else if (tank.getDirection() == Direction.Bottom) {
-            g.fillRect(tank.getX() + 20, tank.getY() + 30, 24, 34);
-        } else if (tank.getDirection() == Direction.Left) {
-            g.fillRect(tank.getX(), tank.getY() + 20, 34, 24);
+        if (defender.getDirection() == Direction.Top) {
+            g.fillRect(defender.getX() + 20, defender.getY(), 24, 34);
+        } else if (defender.getDirection() == Direction.Bottom) {
+            g.fillRect(defender.getX() + 20, defender.getY() + 30, 24, 34);
+        } else if (defender.getDirection() == Direction.Left) {
+            g.fillRect(defender.getX(), defender.getY() + 20, 34, 24);
         } else {
-            g.fillRect(tank.getX() + 30, tank.getY() + 20, 34, 24);
-        }
+            g.fillRect(defender.getX() + 30, defender.getY() + 20, 34, 24);
+        }*/
+        defender.draw(g);
+        aggressor.draw(g);
+        bullet.draw(g);
 
-
+/*
         //aggressor
         g.setColor(new Color(255, 0, 0));
         g.fillRect(aggressor.getX(), aggressor.getY(), 64, 64);
@@ -113,10 +117,11 @@ public class ActionField extends JPanel {
         } else {
             g.fillRect(aggressor.getX() + 30, aggressor.getY() + 20, 34, 24);
         }
-
-
+*/
+/*
         g.setColor(new Color(255, 255, 0));
         g.fillRect(bullet.getX(), bullet.getY(), 14, 14);
+        */
     }
 
 
@@ -156,13 +161,13 @@ public class ActionField extends JPanel {
         //tank.moveRandom();
         //tank.cleanRandom();
 
-        tank.clean();
+        //tank.clean();
 
-        tank.fire();
-        tank.fire();
-        tank.fire();
-        tank.fire();
-        tank.fire();
+        defender.fire();
+        defender.fire();
+        defender.fire();
+        defender.fire();
+        defender.fire();
     }
 
 
@@ -180,7 +185,7 @@ public class ActionField extends JPanel {
     }
 
     //repaint field
-    public void processTurn(Tank tank) throws Exception{
+    public void processTurn(AbstractTank tank) throws Exception{
         repaint();
     }
 
@@ -210,9 +215,9 @@ public class ActionField extends JPanel {
     }
 
     //
-    public void processMove(Tank tank) throws Exception {
+    public void processMove(AbstractTank tank) throws Exception {
 
-        this.tank=tank;
+        //this.defender=tank;
         Direction direction=tank.getDirection();
         int step=1;
         int covered=0;
@@ -309,8 +314,8 @@ public class ActionField extends JPanel {
         }
     }
 
-    public void processMoveRandom(Tank tank) throws Exception{
-        this.tank=tank;
+    public void processMoveRandom(AbstractTank tank) throws Exception{
+        //this.tank=tank;
         Random r=new Random();
         int i;
         while(true){
@@ -325,8 +330,8 @@ public class ActionField extends JPanel {
     }
 
     //
-    public void processMoveToQuadrant(Tank tank, int v, int h) throws Exception {
-        this.tank=tank;
+    public void processMoveToQuadrant(AbstractTank tank, int v, int h) throws Exception {
+        //this.tank=tank;
         String quadrant = getCoordinates(v, h);
 
         int resultY = Integer.parseInt(quadrant.substring(0,
@@ -364,8 +369,8 @@ public class ActionField extends JPanel {
 
 
     //
-    public void processRunAndFire(Tank tank) throws Exception {
-        this.tank=tank;
+    public void processRunAndFire(AbstractTank tank) throws Exception {
+        //this.tank=tank;
         Direction direction=tank.getDirection();
 
         int x=tank.getX()/QUADRANT_SIZE;
@@ -415,8 +420,8 @@ public class ActionField extends JPanel {
         return false;
     }
 
-    private boolean isElementOnQuadrant(int y, int x,Tank tank){
-        Tank target=tank;
+    private boolean isElementOnQuadrant(int y, int x, AbstractTank tank){
+        AbstractTank target=tank;
         if(y>=0 && y<QUADRANT_COUNT_Y && x>=0 && x<QUADRANT_COUNT_X
                 && target.getX()/QUADRANT_SIZE==x && target.getY()/QUADRANT_SIZE==y){
             System.out.println("x="+x+"  y="+y +"  element=tank");
@@ -427,8 +432,8 @@ public class ActionField extends JPanel {
 
 
     //
-    public void processCleanRandom(Tank tank) throws Exception {
-        this.tank=tank;
+    public void processCleanRandom(AbstractTank tank) throws Exception {
+        //this.tank=tank;
 
         Random r=new Random();
         int randomX;
@@ -442,9 +447,9 @@ public class ActionField extends JPanel {
     }
 
     //
-    public void processClean(Tank tank) throws Exception {
+    public void processClean(AbstractTank tank) throws Exception {
 
-        this.tank=tank;
+        //this.tank=tank;
         tank.turn(Direction.Right);
 
         for (int i = 1; i <= QUADRANT_COUNT_X; i++) {
