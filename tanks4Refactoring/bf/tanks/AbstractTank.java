@@ -2,8 +2,6 @@ package tanks4Refactoring.bf.tanks;
 
 import tanks4Refactoring.*;
 import tanks4Refactoring.bf.BattleField;
-import tanks4Refactoring.bf.Destroyable;
-import tanks4Refactoring.bf.Drawable;
 
 import java.awt.*;
 

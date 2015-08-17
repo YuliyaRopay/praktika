@@ -1,8 +1,9 @@
 package tanks4Refactoring.bf.tanks;
 
-import tanks4Refactoring.Direction;
-import tanks4Refactoring.bf.Destroyable;
-import tanks4Refactoring.bf.Drawable;
+
+import tanks5.Direction;
+import tanks5.bf.Destroyable;
+import tanks5.bf.Drawable;
 
 public interface Tank  extends Drawable, Destroyable {
     public Action setUp();
@@ -19,7 +20,7 @@ public interface Tank  extends Drawable, Destroyable {
 
     public void setY(int y);
 
-    public Direction getDirection();
+    public tanks4Refactoring.Direction getDirection();
 
     public void updateX(int x);
 

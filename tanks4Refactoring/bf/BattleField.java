@@ -19,14 +19,14 @@ public class BattleField implements Drawable{
     public static final String WATER = "W";
 
     private String[][] battleFieldTemplate = {
-            {" ", "B", "B", "B", "B", "B", "B", "B", "B"},
+            {" ", "W", "W", "B", "B", "B", "B", "B", "B"},
             {" ", " ", " ", " ", " ", " ", " ", " ", "B"},
             {" ", "B", "B", " ", "B", " ", "B", "B", "R"},
-            {"B", " ", " ", " ", " ", " ", "B", "B", "B"},
+            {"R", " ", " ", " ", " ", " ", "B", "B", "B"},
             {" ", "B", "B", " ", "B", " ", "B", "B", "B"},
             {" ", "B", " ", "B", "B", "B", " ", " ", "B"},
-            {"W", "W", " ", " ", " ", " ", "B", "B", "B"},
-            {" ", "B", " ", "B", "B", "E", " ", " ", "B"},
+            {"W", "B", " ", " ", " ", " ", "B", "B", "B"},
+            {" ", "B", " ", "B", "W", "E", " ", " ", "B"},
             {" ", " ", " ", "B", "B", " ", " ", " ", " "}
     };
 
@@ -131,7 +131,7 @@ public class BattleField implements Drawable{
                     bfObject = new Rock(x, y);
                 } else if (obj.equals(EAGLE)) {
                     bfObject = new Eagle(x, y);
-                } else if (obj.equals(ROCK)) {
+                } else if (obj.equals(WATER)) {
                     bfObject = new Water(x, y);
                 } else {
                     bfObject = new Blank(x, y);

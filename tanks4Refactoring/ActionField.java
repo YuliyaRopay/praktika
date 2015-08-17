@@ -33,9 +33,9 @@ public class ActionField extends JPanel {
     void runTheGame() throws Exception {
 
         while (true) {
-           // if (!aggressor.isDestroyed() && !defender.isDestroyed()) {
-           //     processAction(aggressor.setUp(), aggressor);
-           // }
+            if (!aggressor.isDestroyed() && !defender.isDestroyed()) {
+                processAction(aggressor.setUp(), aggressor);
+            }
 
             if (!aggressor.isDestroyed() && !defender.isDestroyed()) {
                 processAction(defender.setUp(), defender);
