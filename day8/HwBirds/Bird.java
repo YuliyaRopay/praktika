@@ -1,6 +1,8 @@
 package day8.HwBirds;
 
 
+import java.util.Comparator;
+
 public class Bird {
 
     private String name;
@@ -12,11 +14,11 @@ public class Bird {
 
 
     public Bird(String name) {
-        this(name, BirdsType.None, 0, 0);
+        this(name, BirdsType.NONE, 0, 0);
     }
 
     public Bird(String name, double price) {
-        this(name, BirdsType.None, 0, price);
+        this(name, BirdsType.NONE, 0, price);
     }
 
     public Bird(String name, BirdsType type, double price) {
@@ -79,4 +81,6 @@ public class Bird {
     public String toString() {
         return "["+name+" "+type+",  count:"+count+" price:"+price+" sold:"+sold+"]";
     }
+
+
 }

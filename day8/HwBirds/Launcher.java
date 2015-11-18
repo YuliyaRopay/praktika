@@ -32,7 +32,7 @@ public class Launcher {
         System.out.println();
         System.out.println(">>>-----------");
         System.out.println("> Add new bird - cock:");
-        store.addBird(new Bird("cock", BirdsType.DomesticBird, 40, 50));
+        store.addBird(new Bird("cock", BirdsType.DOMESTIC_BIRD, 40, 50));
         store.printAllBirdsList();
 
         System.out.println();

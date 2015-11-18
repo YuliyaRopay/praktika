@@ -35,14 +35,14 @@ public class DemoData {
 
 
     public void addBird(){
-        birdsList.add(new Bird("duck", BirdsType.DomesticBird, 20, 30.20,10));
-        birdsList.add(new Bird("chick", BirdsType.DomesticBird, 100, 10, 200));
-        birdsList.add(new Bird("dove", BirdsType.WildBird, 54, 20, 300));
-        birdsList.add(new Bird("grouse", BirdsType.WildBird, 200, 50, 500));
-        birdsList.add(new Bird("cockatoo", BirdsType.ExoticBird, 10, 300, 10));
-        birdsList.add(new Bird("hawk", BirdsType.BirdOfPrey, 2, 500, 5));
-        birdsList.add(new Bird("kiwi", BirdsType.ExoticBird, 5, 600, 3));
-        birdsList.add(new Bird("None", BirdsType.None, 0, 0, 0));
+        birdsList.add(new Bird("duck", BirdsType.DOMESTIC_BIRD, 20, 30.20,10));
+        birdsList.add(new Bird("chick", BirdsType.DOMESTIC_BIRD, 100, 10, 200));
+        birdsList.add(new Bird("dove", BirdsType.WILD_BIRD, 54, 20, 300));
+        birdsList.add(new Bird("grouse", BirdsType.WILD_BIRD, 200, 50, 500));
+        birdsList.add(new Bird("cockatoo", BirdsType.EXOTIC_BIRD, 10, 300, 10));
+        birdsList.add(new Bird("hawk", BirdsType.BIRD_OF_PREY, 2, 500, 5));
+        birdsList.add(new Bird("kiwi", BirdsType.EXOTIC_BIRD, 5, 600, 3));
+        birdsList.add(new Bird("None", BirdsType.NONE, 0, 0, 0));
     }
 
     public void printBirds(){

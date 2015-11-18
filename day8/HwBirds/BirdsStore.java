@@ -1,5 +1,6 @@
 package day8.HwBirds;
 
+
 import java.util.*;
 
 public class BirdsStore {
@@ -231,4 +232,57 @@ public class BirdsStore {
     }
 
 
+
+    // Comparators
+
+    class BirdsByAscCountComparator implements Comparator<Bird> {
+        @Override
+        public int compare(Bird bird1, Bird bird2) {
+            int count1=bird1.getCount();
+            int count2=bird2.getCount();
+            if(count1>count2){
+                return 1;
+            }
+            else if(count1<count2){
+                return -1;
+            }
+            return 0;
+        }
+
+    }
+
+    class BirdsByDescPriceComparator implements Comparator<Bird> {
+        @Override
+        public int compare(Bird bird1, Bird bird2) {
+            double price1 = bird1.getPrice();
+            double price2 = bird2.getPrice();
+            if (price1 < price2) {
+                return 1;
+            } else if (price1 > price2) {
+                return -1;
+            }
+            return 0;
+        }
+    }
+
+    class BirdsByNameComparator implements Comparator<Bird> {
+        @Override
+        public int compare(Bird bird1, Bird bird2) {
+            return bird1.getName().compareToIgnoreCase(bird2.getName());
+        }
+    }
+
+    class TransactionByDateComparator implements Comparator<Transaction> {
+        @Override
+        public int compare(Transaction tr1, Transaction tr2) {
+            Calendar c1 = tr1.getCalendar();
+            Calendar c2 = tr2.getCalendar();
+            if (c1.compareTo(c2) < 0) {
+                return 1;
+            } else if (c1.compareTo(c2) > 0) {
+                return -1;
+            }
+            return 0;
+        }
+    }
 }
