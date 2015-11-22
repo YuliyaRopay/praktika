@@ -1,6 +1,6 @@
-package day4;
+package day4.frame15;
 
-public class Frame15Window {
+public class Window {
     String room;
     String material;
     String color;
@@ -8,7 +8,7 @@ public class Frame15Window {
     boolean isOpen;
     boolean isVentilation;
 
-    public Frame15Window() {
+    public Window() {
     }
 
     public String getRoom() {

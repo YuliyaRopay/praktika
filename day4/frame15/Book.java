@@ -1,8 +1,8 @@
-package day4;
+package day4.frame15;
 
 import java.util.Date;
 
-public class Frame15Book {
+public class Book {
     String authorName;
     String authorSurname;
     String painter;
@@ -17,15 +17,20 @@ public class Frame15Book {
     String format;
     String cover;
     String language;
+    String font;
+    String formatTypes;
+    String typographyTypes;
+    String hardcover;
     boolean isEbook;
     boolean isChildrenBook;
     long serialNumber;
     boolean isReading;
+    int numberOfColors;
 
-    public Frame15Book() {
+    public Book() {
     }
 
-    public Frame15Book(String authorName, String authorSurname, String title) {
+    public Book(String authorName, String authorSurname, String title) {
         this.authorName = authorName;
         this.authorSurname = authorSurname;
         this.title = title;

@@ -1,8 +1,8 @@
-package day4;
+package day4.frame15;
 
 import java.util.Date;
 
-public class Frame15Flower {
+public class Flower {
     String name;
     String classFlower;
     String color;
@@ -12,7 +12,7 @@ public class Frame15Flower {
     int height;
     int count;
 
-    public Frame15Flower() {
+    public Flower() {
     }
 
     public String getName() {
