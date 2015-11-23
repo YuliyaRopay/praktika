@@ -1,4 +1,4 @@
-package day4.frame15;
+package day4.frame17;
 
 import java.util.Date;
 
@@ -12,5 +12,5 @@ public class Flower {
     int height;
     int count;
 
-
+    public Flower() {}
 }
