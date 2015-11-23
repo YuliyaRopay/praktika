@@ -1,14 +1,14 @@
-package day4;
+package day4.frame25;
 
 /**
  * Created by julia on 20.06.2015.
  */
-public class Frame25ReferenceLauncher {
+public class ReferenceLauncher {
     public static void main(String[] args) {
 
-        Frame25Reference ref1=new Frame25Reference("ref1");
-        Frame25Reference ref2=new Frame25Reference("ref2");
-        Frame25Reference ref3=new Frame25Reference("ref3");
+        Reference ref1=new Reference("ref1");
+        Reference ref2=new Reference("ref2");
+        Reference ref3=new Reference("ref3");
         ref1.setReference(ref2);
         ref2.setReference(ref3);
         ref3.setReference(ref1);

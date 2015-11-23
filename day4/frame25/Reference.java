@@ -1,14 +1,14 @@
-package day4;
+package day4.frame25;
 
-public class Frame25Reference {
+public class Reference {
     private String name;
-    private Frame25Reference reference;
+    private Reference reference;
 
-    public Frame25Reference(String name){
+    public Reference(String name){
         this.name=name;
     }
 
-    public Frame25Reference(String name, Frame25Reference reference){
+    public Reference(String name, Reference reference){
         this.name=name;
         this.reference=reference;
     }
@@ -17,11 +17,11 @@ public class Frame25Reference {
         return name;
     }
 
-    public Frame25Reference getReference() {
+    public Reference getReference() {
         return reference;
     }
 
-    public void setReference(Frame25Reference reference) {
+    public void setReference(Reference reference) {
         this.reference = reference;
     }
 
