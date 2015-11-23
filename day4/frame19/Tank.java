@@ -1,19 +1,19 @@
-package day4;
+package day4.frame19;
 
-public class Frame20Tank {
+public class Tank {
     String color;
     int crew;
     int maxSpeed;
 
-    public Frame20Tank(){
+    public Tank(){
         this("red",6,200);
     }
 
-    public Frame20Tank(String color){
+    public Tank(String color){
         this(color,0,0);
     }
 
-    public Frame20Tank(String color, int crew, int maxSpeed) {
+    public Tank(String color, int crew, int maxSpeed) {
         this.color = color;
         this.crew = crew;
         setMaxSpeed(maxSpeed);
