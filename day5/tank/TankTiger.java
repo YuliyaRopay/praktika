@@ -13,6 +13,11 @@ public class TankTiger extends Tank {
     }
 
     @Override
+    public void move(){
+        System.out.println("TankTiger is moving");
+    }
+
+    @Override
     public String toString() {
         return "Tank T34:["+color+" : "+crew+" : "+maxSpeed+"]";
     }

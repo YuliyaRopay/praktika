@@ -10,6 +10,11 @@ public class TankBT7 extends Tank {
     }
 
     @Override
+    public void move(){
+        System.out.println("TankBT7 is moving");
+    }
+
+    @Override
     public String toString() {
         return "Tank BT7:["+color+" : "+crew+" : "+maxSpeed+"]";
     }

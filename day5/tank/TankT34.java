@@ -9,6 +9,10 @@ public class TankT34 extends Tank {
         super(color,crew,maxSpeed);
     }
 
+    @Override
+    public void move(){
+        System.out.println("TankT34 is moving");
+    }
 
     @Override
     public String toString() {

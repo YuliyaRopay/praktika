@@ -15,6 +15,9 @@ public class Tank {
         this.maxSpeed = maxSpeed;
     }
 
+    public void move(){
+        System.out.println("Tank is moving");
+    }
 
     public void printTankInfo(){
         System.out.println(this.toString());

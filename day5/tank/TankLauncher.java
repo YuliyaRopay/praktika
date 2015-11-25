@@ -10,5 +10,15 @@ public class TankLauncher {
         tankT34.printTankInfo();
         tankTiger.printTankInfo();
 
+        System.out.println();
+        System.out.println(tankBt7);
+        System.out.println(tankT34);
+        System.out.println(tankTiger);
+
+        System.out.println();
+        tankBt7.move();
+        tankT34.move();
+        tankTiger.move();
+
     }
 }
