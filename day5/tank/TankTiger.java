@@ -1,13 +1,13 @@
-package day5;
+package day5.tank;
 
-public class Frame3TankTiger extends Frame3Tank{
+public class TankTiger extends Tank {
 
     private int armor;
-    public Frame3TankTiger(){
+    public TankTiger(){
         this("black", 2, 36);
     }
 
-    public Frame3TankTiger(String color, int crew, int maxSpeed){
+    public TankTiger(String color, int crew, int maxSpeed){
         super(color,crew,maxSpeed);
         this.armor=1;
     }

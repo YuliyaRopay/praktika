@@ -1,11 +1,11 @@
-package day5;
+package day5.tank;
 
-public class Frame3TankBT7 extends Frame3Tank{
-    public Frame3TankBT7(){
+public class TankBT7 extends Tank {
+    public TankBT7(){
         this("white", 3, 72);
     }
 
-    public Frame3TankBT7(String color, int crew, int maxSpeed){
+    public TankBT7(String color, int crew, int maxSpeed){
         super(color,crew,maxSpeed);
     }
 

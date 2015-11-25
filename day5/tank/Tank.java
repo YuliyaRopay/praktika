@@ -1,18 +1,15 @@
-package day5;
+package day5.tank;
 
-/**
- * Created by julia on 21.06.2015.
- */
-public class Frame3Tank {
+public class Tank {
     String color;
     int crew;
     int maxSpeed;
 
-    public Frame3Tank(){
+    public Tank(){
         this("red",6,200);
     }
 
-    public Frame3Tank(String color, int crew, int maxSpeed) {
+    public Tank(String color, int crew, int maxSpeed) {
         this.color = color;
         this.crew = crew;
         this.maxSpeed = maxSpeed;
