@@ -1,4 +1,4 @@
-package day5;
+package day5.number;
 
 /**
  * Created by julia on 21.06.2015.
