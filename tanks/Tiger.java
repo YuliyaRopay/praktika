@@ -1,8 +1,5 @@
 package tanks;
 
-/**
- * Created by julia on 24.06.2015.
- */
 public class Tiger extends Tank{
 
     private int armor=1;

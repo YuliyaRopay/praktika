@@ -1,8 +1,5 @@
 package tanks;
 
-/**
- * Created by julia on 23.06.2015.
- */
 public class Bullet {
 
     private int speed=10;
