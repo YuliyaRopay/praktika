@@ -9,8 +9,6 @@ public class BattleField {
     private final int QUADRANT_COUNT_X=9;
     private final int QUADRANT_COUNT_Y=9;
 
-    //final int BF_WIDTH = 576;
-    //final int BF_HEIGHT = 576;
     private final int BF_WIDTH = QUADRANT_SIZE*QUADRANT_COUNT_X;
     private final int BF_HEIGHT = QUADRANT_SIZE*QUADRANT_COUNT_Y;
 
@@ -33,7 +31,6 @@ public class BattleField {
         this.battleField = battleField;
     }
 
-    //!!!!!!!!!!!!!! заменить константами
     public int getBfWidth() {
         return BF_WIDTH;
     }
@@ -63,19 +60,6 @@ public class BattleField {
     }
 
     public String getAggressorLocation(){
-        /*
-               this.tank=tank;
-        Random r=new Random();
-        int i;
-        while(true){
-            i=r.nextInt(4)+1;
-            // 1 - top, 2 - bottom, 3 - left, 4 - right
-            tank.turn(Direction.values()[i]);
-            tank.move();
-            //runAndFire(i);
-            Thread.sleep(tank.getSpeed());
-        }
-         */
 
         String[] aggressorPosition=new String[]{"64_64",64*3+"_"+64*5,0+"_"+0};
         Random r=new Random();
