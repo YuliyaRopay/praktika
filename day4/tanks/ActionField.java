@@ -2,39 +2,36 @@ package day4.tanks;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
-public class ActionField extends JPanel{
+public class ActionField extends JPanel {
 
     private final boolean COLORDED_MODE = false;
 
-    //final int BF_WIDTH = 576;
-    //final int BF_HEIGHT = 576;
+    private final int QUADRANT_SIZE=64;
 
-    final int QUADRANT_SIZE=64;
-    final int QUADRANT_COUNT_X=9;
-    final int QUADRANT_COUNT_Y=9;
+    private final int QUADRANT_COUNT_X=9;
+    private final int QUADRANT_COUNT_Y=9;
 
-    final int BF_WIDTH = QUADRANT_SIZE*QUADRANT_COUNT_X;
-    final int BF_HEIGHT = QUADRANT_SIZE*QUADRANT_COUNT_Y;
+    private final int BF_WIDTH = QUADRANT_SIZE*QUADRANT_COUNT_X;
+    private final int BF_HEIGHT = QUADRANT_SIZE*QUADRANT_COUNT_Y;
 
-
-    private BattleField battleField;
     private Tank tank;
+   // private T34 defender;
     private Bullet bullet;
+    private BattleField battleField;
 
-    public ActionField()throws Exception{
+    public ActionField() throws Exception{
 
         battleField=new BattleField();
         bullet=new Bullet(-100,-100,Direction.Non);
         tank=new Tank(this,battleField);
-        bullet=new Bullet(-100,-100,Direction.Non);
+        //defender=new T34(this,battleField);
 
-        JFrame frame = new JFrame("BATTLE FIELD, DAY 2");
+        JFrame frame = new JFrame("BATTLE FIELD");
         frame.setLocation(750, 150);
-        frame.setMinimumSize(new Dimension(BF_WIDTH, BF_HEIGHT + 22));
+        frame.setMinimumSize(new Dimension(BF_WIDTH, BF_HEIGHT + 50));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.getContentPane().add(this);
-
         frame.getContentPane().add(this);
         frame.pack();
         frame.setVisible(true);
@@ -66,7 +63,7 @@ public class ActionField extends JPanel{
         for (int j = 0; j < battleField.getDimentionY(); j++) {
             for (int k = 0; k < battleField.getDimentionX(); k++) {
                 if (battleField.scanQuadrant(j, k).equals("B")) {
-                    String coordinates = getQuadrantXY(j + 1, k + 1);
+                    String coordinates = getCoordinates(j + 1, k + 1);
                     int separator = coordinates.indexOf("_");
                     int y = Integer.parseInt(coordinates.substring(0, separator));
                     int x = Integer.parseInt(coordinates.substring(separator + 1));
@@ -95,28 +92,50 @@ public class ActionField extends JPanel{
         g.fillRect(bullet.getX(), bullet.getY(), 14, 14);
     }
 
-    //------------------------------
 
+    //run
     public void runTheGame() throws Exception{
-        tank.moveRandom();
+        //System.out.println(getCoordinates(1, 2));
+        //System.out.println(getQuadrant(tank.getY(),tank.getX()));
 
-        //tank.clean();
+        tank.turn(Direction.Right);
+        tank.move();
+        tank.fire();
+        tank.fire();
+        tank.turn(Direction.Bottom);
+        tank.move();
 
-        tank.fire();
-        tank.fire();
-        tank.fire();
-        tank.move();
-        tank.turn(Direction.Left);
-        tank.fire();
-        tank.move();
+       // tank.moveRandom();
+        tank.moveToQuadrant(2,2);
+
+
+        tank.clean();
     }
 
+    //get coordinates by quadrant v-vertical, h-horizontal
+    //result=y_x
+    //public String getQuadrantXY(int v, int h) {
+    public String getCoordinates(int v, int h) {
+        return (v - 1) * QUADRANT_SIZE + "_" + (h - 1) * QUADRANT_SIZE;
+    }
 
-    public boolean processInterception() {
-        String coordinates = getQuadrantByCoordinates(bullet.getY(), bullet.getX());
+    //get quadrant by coordinates x,y
+    //result=y_x
+    public String getQuadrant(int y, int x){
+        return y/QUADRANT_SIZE+"_"+x/QUADRANT_SIZE;
+    }
+
+    //repaint field
+    public void processTurn(Tank tank) throws Exception{
+        repaint();
+    }
+
+    //checks the intersection of bullet with objects battlefield
+    private boolean processInterception() {
+        String coordinates = getQuadrant(bullet.getY(), bullet.getX());
         int separator = coordinates.indexOf("_");
-        int x = Integer.parseInt(coordinates.substring(0, separator));
-        int y = Integer.parseInt(coordinates.substring(separator + 1));
+        int y = Integer.parseInt(coordinates.substring(0, separator));
+        int x = Integer.parseInt(coordinates.substring(separator + 1));
 
         if(y>=0 && y<QUADRANT_COUNT_Y && x>=0 && x<QUADRANT_COUNT_X){
             if(!battleField.scanQuadrant(y, x).trim().isEmpty()){
@@ -124,33 +143,10 @@ public class ActionField extends JPanel{
                 return true;
             }
         }
-
         return false;
     }
 
-    //-----
-    public String getQuadrant(int x, int y){
-        return y/QUADRANT_SIZE+"_"+x/QUADRANT_SIZE;
-    }
-
-    //----
-    public String getQuadrantXY(int v, int h) {
-        return (v - 1) * QUADRANT_SIZE + "_" + (h - 1) * QUADRANT_SIZE;
-    }
-
-    //x=h, y=v, result=x_y
-    public String getQuadrantByCoordinates(int v, int h){
-        return h/QUADRANT_SIZE+"_"+v/QUADRANT_SIZE;
-    }
-
     //
-    public void processTurn(Tank tank) throws Exception{
-        repaint();
-        //tankDirection=direction;
-    }
-
-    //
-    //moving 1-up, 2-down, 3-left, 4-right
     public void processMove(Tank tank) throws Exception {
 
         this.tank=tank;
@@ -161,53 +157,46 @@ public class ActionField extends JPanel{
         int tankXTmp = tank.getX();
         int tankYTmp = tank.getY();
 
-        tank.turn(direction);
 
-        while(covered<QUADRANT_SIZE){
-            if(direction==Direction.Top){
-                tank.updateY(-step);
-                System.out.println("up "+tank.getX()+":"+tank.getY());
-            }else if(direction==Direction.Bottom){
-                tank.updateY(+step);
-                System.out.println("down "+tank.getX()+":"+tank.getY());
-            }else if(direction==Direction.Left){
-                tank.updateX(-step);
-                System.out.println("left "+tank.getX()+":"+tank.getY());
-            }else if(direction==Direction.Right){
-                tank.updateX(+step);
-                System.out.println("right "+tank.getX()+":"+tank.getY());
-            }
-
-            covered+=step;
-
-            if((tank.getY()>=0 && tank.getY()<BF_HEIGHT) && (tank.getX()>=0 && tank.getX()<BF_WIDTH)){
-                repaint();
-                Thread.sleep(tank.getSpeed());
-                //System.out.println(" ; repaint "+tankX/QUADRANT_SIZE+":"+tankY/QUADRANT_SIZE);
-            }else{
-                tank.setX(tankXTmp);
-                tank.setY(tankYTmp);
-                System.out.println(" ; no repaint "+tank.getX()/QUADRANT_SIZE+":"+tank.getY()/QUADRANT_SIZE);
-            }
+        // check limits x: 0, 513; y: 0, 513
+        if ((direction == Direction.Top && tank.getY() == 0) || (direction == Direction.Bottom && tank.getY() >= 512)
+                || (direction == Direction.Left && tank.getX() == 0) || (direction == Direction.Right && tank.getX() >= 512)) {
+            System.out.println("[illegal move] direction: " + direction + " tankX: " + tank.getX() + ", tankY: " + tank.getY());
+            return;
         }
 
-        System.out.println("RESULT MOVE: "+tank.getX()/QUADRANT_SIZE+":"+tank.getY()/QUADRANT_SIZE);
-    }
+        tank.turn(direction);
 
+        while (covered < 64) {
+            if (direction == Direction.Top) {
+                tank.updateY(-step);
+                System.out.println("[move up] direction: " + direction + " tankX: " + tank.getX() + ", tankY: " + tank.getY());
+            } else if (direction == Direction.Bottom) {
+                tank.updateY(+step);
+                System.out.println("[move down] direction: " + direction + " tankX: " + tank.getX() + ", tankY: " + tank.getY());
+            } else if (direction == Direction.Left) {
+                tank.updateX(-step);
+                System.out.println("[move left] direction: " + direction + " tankX: " + tank.getX() + ", tankY: " + tank.getY());
+            } else {
+                tank.updateX(+step);
+                System.out.println("[move right] direction: " + direction + " tankX: " + tank.getX() + ", tankY: " + tank.getY());
+            }
+            covered += step;
+
+            tank.turn(direction);
+            Thread.sleep(tank.getSpeed());
+        }
+        //tank.turn(direction);
+
+    }
 
     //
     public void processFire(Bullet bullet) throws Exception {
         this.bullet=bullet;
-        //this.tank=tank;
-
         int step=1;
-
-        //bullet.setX(tank.getX() + 25);
-        //bullet.setY(tank.getY()+ 25);
 
         while (bullet.getX() > -15 && bullet.getX() < BF_WIDTH && bullet.getY() > -15 && bullet.getY() < BF_HEIGHT) {
             //System.out.println(bulletX + "----" + bulletY);
-// 1 - top, 2 - bottom, 3 - left, 4 - right
             if (bullet.getDirection() == Direction.Top) {
                 bullet.updateY(-step);
             } else if (bullet.getDirection() == Direction.Bottom) {
@@ -227,99 +216,71 @@ public class ActionField extends JPanel{
         }
     }
 
+    public void processMoveRandom(Tank tank) throws Exception{
+        this.tank=tank;
+        Random r=new Random();
+        int i;
+        while(true){
+            i=r.nextInt(4)+1;
+            // 1 - top, 2 - bottom, 3 - left, 4 - right
+            tank.turn(Direction.values()[i]);
+            tank.move();
+            Thread.sleep(tank.getSpeed());
+        }
 
- /*
-    // moveToQuadrant(y, x)
-    public void processMoveToQuadrant(int v, int h) throws Exception {
-        String quadrant = getQuadrant(v, h);
+    }
 
-        int resultX = Integer.parseInt(quadrant.substring(0,
+    //
+    public void processMoveToQuadrant(Tank tank, int v, int h) throws Exception {
+        this.tank=tank;
+        String quadrant = getCoordinates(v, h);
+
+        int resultY = Integer.parseInt(quadrant.substring(0,
                 quadrant.indexOf("_")));
-        int resultY = Integer
+        int resultX = Integer
                 .parseInt(quadrant.substring(quadrant.indexOf("_") + 1));
+
 
         while (resultX != tank.getX()) {
             if (resultX > tank.getX()) {
-                runAndFire(4);
+                tank.turn(Direction.Right);
+                tank.move();
+                tank.fire();
             } else {
-                runAndFire(3);
+                tank.turn(Direction.Left);
+                tank.move();
+                tank.fire();
             }
         }
 
         while (resultY != tank.getY()) {
             if (resultY > tank.getY()) {
-                runAndFire(2);
+                tank.turn(Direction.Bottom);
+                tank.move();
+                tank.fire();
             } else {
-                runAndFire(1);
+                tank.move();
+                tank.fire();
+                tank.turn(Direction.Top);
             }
         }
+        System.out.println(quadrant+"#"+resultX + "="+resultY+" #" + tank.getX()+"="+tank.getY());
     }
-
-    //flagFire = 0/1  no fire/fire
-    public void runAndFire(int direction) throws Exception {
-
-        int x=tank.getX()/QUADRANT_SIZE;
-        int y=tank.getY()/QUADRANT_SIZE;
-
-        int nextX=x;
-        int nextY=y;
-
-        if(direction==1){
-            nextY-=1;
-        }else if(direction==2){
-            nextY+=1;
-        }else if(direction==3){
-            nextX-=1;
-        }else if(direction==4){
-            nextX+=1;
-        }
-
-        tank.turn(direction);
-        repaint();
-
-        int i = 0;
-        if(tank.getFlagFire()==1 && isElementOnQuadrant(nextY, nextX, "B")){
-            System.out.println("nextX="+nextX+"  nextY="+nextY +"  fire");
-            Thread.sleep(20);
-            while (i <= 1) {
-                processFire(bullet);
-                i++;
-            }
-        }
-
-        processMove(tank);
-
-    }
-
 
     //
-    public boolean isElementOnQuadrant(int y, int x, String element){
-
-        if(y>=0 && y<QUADRANT_COUNT_Y && x>=0 && x<QUADRANT_COUNT_X
-                && battleField.scanQuadrant(y, x).equalsIgnoreCase(element)){
-            System.out.println("x="+x+"  y="+y +"  element="+element);
-            return true;
-        }
-        return false;
-    }
-
-
-    //
-    public void processClean(Tank tank) throws Exception {
-        this.tank=tank;
-
+    public void processClean() throws Exception {
+        tank.turn(Direction.Right);
         for (int i = 1; i <= QUADRANT_COUNT_X; i++) {
-            if (i % 2 == 0) {
-                processMoveToQuadrant(1, i);
-            }
-            else {
+//            if (i % 2 == 0) {
+//                tank.moveToQuadrant(1, i);
+//            }
+//            else {
                 for (int j = 1; j <= QUADRANT_COUNT_Y; j++) {
-                    processMoveToQuadrant(j, i);
-                }
+                    tank.moveToQuadrant(j, i);
+//                }
             }
         }
     }
- */
 
 
 }

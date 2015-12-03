@@ -1,6 +1,7 @@
 package day4.tanks;
 
 public class Bullet {
+
     private int speed=10;
     private int x;
     private int y;

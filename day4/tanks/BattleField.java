@@ -2,8 +2,13 @@ package day4.tanks;
 
 public class BattleField {
 
-    private int bfWidth = 576;
-    private int bfHeight = 576;
+    private final int QUADRANT_SIZE=64;
+
+    private final int QUADRANT_COUNT_X=9;
+    private final int QUADRANT_COUNT_Y=9;
+
+    private final int BF_WIDTH = QUADRANT_SIZE*QUADRANT_COUNT_X;
+    private final int BF_HEIGHT = QUADRANT_SIZE*QUADRANT_COUNT_Y;
 
     private String[][] battleField = {
             {"B", "B", "B", "B", "B", "B", "B", "B", "B"},
@@ -17,7 +22,6 @@ public class BattleField {
             {"B", " ", " ", "B", "B", "B", " ", " ", "B"}
     };
 
-
     public BattleField() {
     }
 
@@ -26,11 +30,11 @@ public class BattleField {
     }
 
     public int getBfWidth() {
-        return bfWidth;
+        return BF_WIDTH;
     }
 
     public int getBfHeight() {
-        return bfHeight;
+        return BF_HEIGHT;
     }
 
     public String[][] getBattleField() {
