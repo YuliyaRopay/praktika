@@ -13,8 +13,6 @@ public class ActionField extends JPanel {
     private final int QUADRANT_COUNT_X=9;
     private final int QUADRANT_COUNT_Y=9;
 
-    //final int BF_WIDTH = 576;
-    //final int BF_HEIGHT = 576;
     private final int BF_WIDTH = QUADRANT_SIZE*QUADRANT_COUNT_X;
     private final int BF_HEIGHT = QUADRANT_SIZE*QUADRANT_COUNT_Y;
 
@@ -122,9 +120,6 @@ public class ActionField extends JPanel {
 
     //run
     public void runTheGame() throws Exception{
-        //System.out.println(getCoordinates(1, 2));
-        //System.out.println(getQuadrant(tank.getY(),tank.getX()));
-
 /*
         tank.turn(Direction.Left);
         tank.move();
@@ -156,9 +151,8 @@ public class ActionField extends JPanel {
         //tank.moveRandom();
         //tank.cleanRandom();
 
-        tank.clean();
+        //tank.clean();
 
-        tank.fire();
         tank.fire();
         tank.fire();
         tank.fire();
@@ -197,17 +191,38 @@ public class ActionField extends JPanel {
                 return true;
             }
 
-            if(aggressor.getX()/QUADRANT_SIZE==x && aggressor.getY()/QUADRANT_SIZE==y){
+            if(checkInterception(getQuadrant(aggressor.getX(),aggressor.getY()),coordinates)){
+           // if(aggressor.getX()/QUADRANT_SIZE==x && aggressor.getY()/QUADRANT_SIZE==y){
                 aggressor.destroy();
                 return true;
             }
+
+            //if(checkInterception(getQuadrant(defender.getX(),defender.getY(),coordinates))){
+            //    defender.destroy();
+            //    return true;
+            //}
         }
-
-
-
-
         return false;
     }
+
+
+    //
+    private boolean checkInterception(String object, String quadrant){
+        int oy=Integer.parseInt(object.split("_")[0]);
+        int ox=Integer.parseInt(object.split("_")[1]);
+
+        int qy=Integer.parseInt(quadrant.split("_")[0]);
+        int qx=Integer.parseInt(quadrant.split("_")[1]);
+
+        if(oy>=0 && oy<QUADRANT_COUNT_Y && ox>=0 && ox<QUADRANT_COUNT_X){
+            if(oy==qy && ox==qx){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
     //
     public void processMove(Tank tank) throws Exception {
@@ -248,38 +263,6 @@ public class ActionField extends JPanel {
         }
 
         System.out.println("RESULT MOVE: "+tank.getX()/QUADRANT_SIZE+":"+tank.getY()/QUADRANT_SIZE);
-
-        /*
-        // check limits x: 0, 513; y: 0, 513
-        if ((direction == Direction.Top && tank.getY() == 0) || (direction == Direction.Bottom && tank.getY() >= 512)
-                || (direction == Direction.Left && tank.getX() == 0) || (direction == Direction.Right && tank.getX() >= 512)) {
-            System.out.println("[illegal move] direction: " + direction + " tankX: " + tank.getX() + ", tankY: " + tank.getY());
-            return;
-        }
-
-        tank.turn(direction);
-
-        while (covered < 64) {
-            if (direction == Direction.Top) {
-                tank.updateY(-step);
-                System.out.println("[move up] direction: " + direction + " tankX: " + tank.getX() + ", tankY: " + tank.getY());
-            } else if (direction == Direction.Bottom) {
-                tank.updateY(+step);
-                System.out.println("[move down] direction: " + direction + " tankX: " + tank.getX() + ", tankY: " + tank.getY());
-            } else if (direction == Direction.Left) {
-                tank.updateX(-step);
-                System.out.println("[move left] direction: " + direction + " tankX: " + tank.getX() + ", tankY: " + tank.getY());
-            } else {
-                tank.updateX(+step);
-                System.out.println("[move right] direction: " + direction + " tankX: " + tank.getX() + ", tankY: " + tank.getY());
-            }
-            covered += step;
-
-            tank.turn(direction);
-            Thread.sleep(tank.getSpeed());
-        }
-        */
-        //tank.turn(direction);
     }
 
 
