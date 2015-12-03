@@ -11,6 +11,8 @@ public class Tank {
     private ActionField actionField;
     private BattleField battleField;
 
+    private int flagFire=0;
+
     public Tank(ActionField af, BattleField bf){
         this(af,bf,128, 512, Direction.Top);
 
@@ -92,9 +94,9 @@ public class Tank {
         actionField.processMoveToQuadrant(this,v,h);
     }
 
-    /*
-    public void clean ()  throws Exception{
 
+    public void clean ()  throws Exception{
+        actionField.processClean();
     }
-     */
+
 }
