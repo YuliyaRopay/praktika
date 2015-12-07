@@ -3,7 +3,8 @@ package day7.Frame9MyLinkedList;
 
 import java.util.Iterator;
 
-public class SimpleLinkedList implements Iterable<Object> {
+public class SimpleLinkedList implements Iterable<Object>
+{
     private Node nodeRoot;
     private int size;
 
@@ -101,6 +102,7 @@ public class SimpleLinkedList implements Iterable<Object> {
     public int getSize(){
         return size;
     }
+
 
     public void printAll(){
         if(size==0){
