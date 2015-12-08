@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Stack {
+
     private LinkedList<Object> stackList;
 
     public Stack() {
@@ -11,24 +12,39 @@ public class Stack {
     }
 
     public void push(Object object){
-        stackList.add(object);
+        stackList.push(object);
     }
 
-    public Object peak(int index){
-        return stackList.get(index);
+
+    public Object peek(){
+        return stackList.peek();
+    }
+
+    public Object pop(){
+
+        return stackList.pop();
+
     }
 
     public int getSize(){
         return stackList.size();
     }
 
-    public void printAll(){
-        System.out.print("[");
-        for(Object o:stackList){
-            System.out.print(o.toString() + " ,");
-        }
-        System.out.println("]");
-    }
 
+    @Override
+    public String toString() {
+
+        String resultString="";
+        for(Object o: stackList){
+            if(o==null){
+                resultString=resultString+"[null]";
+            }
+            else{
+                resultString=resultString+"["+o.toString()+"] ";
+            }
+        }
+
+        return resultString;
+    }
 
 }
