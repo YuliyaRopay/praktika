@@ -2,7 +2,7 @@ package day7.HwFrame5MyArrayList;
 
 import java.util.Iterator;
 
-public class SimpleArrayList implements Iterable<Object>{
+public class SimpleArrayList implements SimpleList, Iterable<Object>{
 
     private Object[] arrayList =new Object[0];
 
@@ -10,25 +10,30 @@ public class SimpleArrayList implements Iterable<Object>{
         arrayList =new Object[0];
     }
 
+    @Override
+    public void add(Object object) {
+        addLast(object);
+    }
+
     //
     public void addLast(Object object){
-        this.add(object,this.getSize());
+        this.addByIndex(object, this.size());
     }
 
     //
     public void addFirst(Object object) {
-        this.add(object, 0);
+        this.addByIndex(object, 0);
     }
 
     //
     public void addAfter(Object object, int index) {
-        this.add(object, index);
+        this.addByIndex(object, index);
     }
 
     //
-    private void add(Object object, int index){
+    private void addByIndex(Object object, int index){
 
-        int length=this.getSize();
+        int length=this.size();
         Object[] tmpArray=new Object[length+1];
 
         if (index>=0 && index<=length){
@@ -50,13 +55,20 @@ public class SimpleArrayList implements Iterable<Object>{
 
 
     //
-    public void remove(int index){
+    @Override
+    public void remove(Object object) {
+        removeByIndex(getIndexOfObject(object));
+    }
 
-        Object result=arrayList[index];
-        Object[] tmpArray=new Object[getSize()-1];
+    //
+    private void removeByIndex(int index){
 
-        if (index<arrayList.length && index>=0){
-            for(int i=0;i<getSize()-1;i++){
+       if (index<arrayList.length && index>=0){
+
+           Object result=arrayList[index];
+           Object[] tmpArray=new Object[size()-1];
+
+            for(int i=0;i<size()-1;i++){
                 if(i<index){
                     tmpArray[i]=arrayList[i];
                 }
@@ -64,15 +76,31 @@ public class SimpleArrayList implements Iterable<Object>{
                     tmpArray[i]=arrayList[i+1];
                 }
             }
-
             arrayList=tmpArray;
         }
     }
 
+    //
+    @Override
+    public boolean contains(Object object) {
+        return getIndexOfObject(object)>=0;
+    }
 
     //
-    public int getSize(){
-        return arrayList.length;
+    private int getIndexOfObject(Object object){
+        for(int i=0;i<size();i++){
+            if ((arrayList[i]!=null && arrayList[i].equals(object)) ||
+                    (arrayList[i]==null && object==null)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    //
+    @Override
+    public int size() {
+        return  arrayList.length;
     }
 
 

@@ -6,25 +6,16 @@ public class Launcher {
 
         SimpleArrayList arrayList=new SimpleArrayList();
 
-        System.out.println(">>> Add last:");
-        arrayList.addLast("one");
+        System.out.println(">>> Add:");
+        arrayList.add("one");
         System.out.println(arrayList.toString());
-
-        System.out.println();
-        System.out.println(">>> Add last:");
-        arrayList.addLast(2);
+        arrayList.add(2);
         System.out.println(arrayList.toString());
-
-        System.out.println();
-        System.out.println(">>> Add last:");
-        arrayList.addLast(0.5);
+        arrayList.add(0.5);
+        arrayList.add(0.5);
         System.out.println(arrayList.toString());
-
-        System.out.println();
-        System.out.println(">>> Add last:");
-        arrayList.addLast(null);
+        arrayList.add(null);
         System.out.println(arrayList.toString());
-
 
         System.out.println();
         System.out.println(">>> Add first:");
@@ -37,9 +28,20 @@ public class Launcher {
         System.out.println(arrayList.toString());
 
         System.out.println();
-        System.out.println(">>> Remove index=5:");
+        System.out.println(">>> Remove object=5:");
         arrayList.remove(5);
         System.out.println(arrayList.toString());
+
+        System.out.println();
+        System.out.println(">>> Remove object=null:");
+        arrayList.remove(null);
+        System.out.println(arrayList.toString());
+
+        System.out.println();
+        System.out.println(">>> Remove object=0.5:");
+        arrayList.remove(0.5);
+        System.out.println(arrayList.toString());
+
 
         System.out.println();
         System.out.println(">>> For each:");
