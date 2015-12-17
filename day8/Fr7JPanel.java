@@ -15,6 +15,13 @@ public class Fr7JPanel extends JPanel{
 
         frame.getContentPane().add(this);
 
+        JLabel label = new JLabel("<html>HTML-форматирование: " +
+                "<ul><li> <i>text </i>," +
+                "<li><b>text bold</b> <li><font size = +2> размер </font>" +
+                "<li>список </ul>");
+
+        this.add(label);
+
         frame.pack();
         frame.setVisible(true);
         repaint();
