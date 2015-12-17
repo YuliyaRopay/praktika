@@ -18,8 +18,6 @@ public class ActionField extends JPanel {
     private final int QUADRANT_COUNT_X=9;
     private final int QUADRANT_COUNT_Y=9;
 
-    //final int BF_WIDTH = 576;
-    //final int BF_HEIGHT = 576;
     private final int BF_WIDTH = QUADRANT_SIZE*QUADRANT_COUNT_X;
     private final int BF_HEIGHT = QUADRANT_SIZE*QUADRANT_COUNT_Y;
 

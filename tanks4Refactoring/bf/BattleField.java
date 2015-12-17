@@ -41,7 +41,6 @@ public class BattleField implements Drawable{
         drawBattleField();
     }
 
-    //!!!!!!!!!!!!!! заменить константами
     public int getBfWidth() {
         return BF_WIDTH;
     }

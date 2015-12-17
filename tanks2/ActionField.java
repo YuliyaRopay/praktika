@@ -17,7 +17,6 @@ public class ActionField extends JPanel {
     private final int BF_HEIGHT = QUADRANT_SIZE*QUADRANT_COUNT_Y;
 
     private Tank tank;
-   // private T34 defender;
     private Tank aggressor;
     private Bullet bullet;
     private BattleField battleField;
