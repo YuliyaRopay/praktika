@@ -2,7 +2,7 @@ package tanks6.bf.tanks;
 
 
 import tanks6.Direction;
-import tanks6.bf.BattleField;
+import tanks6.bf.*;
 
 import java.awt.*;
 
@@ -18,7 +18,7 @@ public class AbstractTank implements Tank {
 
     private boolean destroyed;
 
-    private BattleField bf;
+    protected BattleField bf;
 
     protected Color tankColor;
     protected Color towerColor;
@@ -144,6 +144,28 @@ public class AbstractTank implements Tank {
     public void move() {
 
     }
+
+    //
+    protected Action getAction(int v, int h){
+
+        BFObject bfObject=bf.scanQuadrant(v,h);
+
+        if(bfObject instanceof Blank || bfObject.isDestroyed()){
+            System.out.println("move "+v+" "+h);
+            return Action.MOVE;
+        }
+        if(bfObject instanceof Brick || bfObject instanceof Eagle || bfObject instanceof Rock){
+            System.out.println("fire "+v+" "+h);
+            return Action.FIRE;
+        }
+
+        System.out.println("none "+v+" "+h);
+        return Action.NONE;
+    }
+
+
+
+
 
     /*
 

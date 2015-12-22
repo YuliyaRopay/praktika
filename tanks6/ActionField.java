@@ -84,8 +84,6 @@ public class ActionField extends JPanel {
         processMove(aggressor);
         processMove(aggressor);
 */
-
-
         //processMoveToQuadrant(defender, 9,9);
 
 
@@ -103,9 +101,10 @@ public class ActionField extends JPanel {
 
     private void processAction(Action a, Tank tank) throws Exception {
         if (a == Action.MOVE) {
+            //processFire(tank);
             processMove(tank);
         } else if (a == Action.FIRE) {
-            processTurn(tank);
+            //processTurn(tank);
             processFire(tank);
         }
     }
@@ -226,22 +225,20 @@ public class ActionField extends JPanel {
     private boolean isProcessMove(int y, int x){
 
         BFObject bfobject = battleField.scanCoordinates(y,x);
-        //System.out.println(battleField.getQuadrant(y,x));
-        //System.out.println("y="+y+" x="+x+"  "+bfobject.toString());
 
         if((y>=0 && y<=battleField.getBfHeight()-battleField.QUADRANT_SIZE)
                 && (x>=0 && x<=battleField.getBfWidth()-battleField.QUADRANT_SIZE)
                 && (bfobject instanceof Blank || bfobject.isDestroyed())){
-            //System.out.println("true");
             return true;
         }
-        //System.out.println("false");
+
         return false;
     }
 
     //
     private void processFire(Tank tank) throws Exception {
 
+        processTurn(tank);
         bullet = tank.fire();
         int step = 1;
         while ((bullet.getX() > -15 && bullet.getX() < battleField.getBfWidth())
@@ -282,6 +279,7 @@ public class ActionField extends JPanel {
 
             if (!bfObject.isDestroyed() && !(bfObject instanceof Blank)) {
                 battleField.destroyObject(y, x);
+                System.out.println("destroy "+y+" "+x);
                 return true;
             }
 
@@ -352,40 +350,4 @@ public class ActionField extends JPanel {
         }
 
     }
-    //
-    /*
-    public void processMoveToQuadrant(AbstractTank tank, int v, int h) throws Exception {
-
-        while (resultX != tank.getX()) {
-            if (resultX > tank.getX()) {
-
-                tank.turn(Direction.Right);
-                tank.runAndFire();
-                //tank.move();
-            } else {
-                tank.turn(Direction.Left);
-                tank.runAndFire();
-                //tank.move();
-            }
-        }
-
-
-        while (resultY != tank.getY()) {
-            if (resultY > tank.getY()) {
-                tank.turn(Direction.Bottom);
-                tank.runAndFire();
-                //tank.move();
-            } else {
-                tank.turn(Direction.Top);
-                tank.runAndFire();
-                //tank.move();
-            }
-        }
-        //System.out.println("quadrant="+quadrant+"#"+"result="+resultX + "="+resultY+" # stop=" + tank.getX()+"="+tank.getY());
-    }
-
-
-
-
-    */
-}
+ }
