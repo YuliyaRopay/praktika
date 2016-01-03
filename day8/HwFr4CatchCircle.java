@@ -19,7 +19,7 @@ public class HwFr4CatchCircle {
     }
 
     public HwFr4CatchCircle(){
-        JFrame frame=new JFrame();
+        JFrame frame=new JFrame("Кликни по шарику ");
         frame.setLocation(100,100);
         frame.setMinimumSize(new Dimension(800,600));
 
