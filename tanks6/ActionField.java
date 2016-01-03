@@ -86,15 +86,19 @@ public class ActionField extends JPanel {
 */
         //processMoveToQuadrant(defender, 9,9);
 
-
+int i=0;
         while (true) {
             if (!aggressor.isDestroyed() && !defender.isDestroyed()) {
                 processAction(aggressor.setUp(), aggressor);
+
+                System.out.println("af result="+aggressor.getY()/64+"_"+aggressor.getX()/64);
             }
 
             //if (!aggressor.isDestroyed() && !defender.isDestroyed()) {
             //    processAction(defender.setUp(), defender);
             //}
+
+i++;
         }
 
     }
@@ -123,17 +127,20 @@ public class ActionField extends JPanel {
 
         for (int i = 0; i < tank.getMovePath(); i++) {
 
+            //System.out.println("af i="+i+" get="+tank.getMovePath());
+
             int covered = 0;
 
             int v = battleField.getQuadrant(tank.getY());
             int h = battleField.getQuadrant(tank.getX());
-            System.out.println("v="+v+"  h="+h);
+
+           //System.out.println("af v1="+v+"  h="+h);
 
             if ((direction == Direction.TOP && tank.getY() == 0)
                     || (direction == Direction.BOTTOM && tank.getY() >= battleField.getBfHeight()-battleField.QUADRANT_SIZE)
                     || (direction == Direction.LEFT && tank.getX() == 0)
                     || (direction == Direction.RIGHT && tank.getX() >= battleField.getBfWidth()-battleField.QUADRANT_SIZE)) {
-                System.out.println("Error move: " + direction + " tankX: " + tank.getX() + ", tankY: " + tank.getY());
+                System.out.println("Error move 1: " + direction + " tankX: " + tank.getX() + ", tankY: " + tank.getY());
                 return;
             }
 
@@ -148,13 +155,16 @@ public class ActionField extends JPanel {
                 h--;
             }
 
+            //System.out.println("af v2="+v+"  h="+h);
+
             BFObject bfobject = battleField.scanQuadrant(v, h);
 
             if (!(bfobject instanceof Blank) && !bfobject.isDestroyed()) {
-                System.out.println("Error move: " + direction+ " tankX: " + tank.getX() + ", tankY: " + tank.getY());
+                System.out.println("Error move 2: " + direction+ " tankX: " + tank.getX() + ", tankY: " + tank.getY());
                 return;
             }
 
+            //System.out.println("af v3="+v+"  h="+h);
 
             while (covered < battleField.QUADRANT_SIZE) {
                 if (direction == Direction.TOP) {
@@ -279,7 +289,7 @@ public class ActionField extends JPanel {
 
             if (!bfObject.isDestroyed() && !(bfObject instanceof Blank)) {
                 battleField.destroyObject(y, x);
-                System.out.println("destroy "+y+" "+x);
+                System.out.println("processInterception destroy "+y+" "+x);
                 return true;
             }
 

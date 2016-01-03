@@ -1,7 +1,11 @@
 package tanks6.bf;
 
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
 
 public abstract class SimpleBFObject implements BFObject {
 
@@ -11,6 +15,8 @@ public abstract class SimpleBFObject implements BFObject {
     protected Color color;
 
     private boolean isDestroyed = false;
+
+    protected Image image;
 
     public SimpleBFObject(int x, int y) {
         this.x = x;
@@ -25,8 +31,29 @@ public abstract class SimpleBFObject implements BFObject {
     @Override
     public void draw(Graphics g) {
         if (!isDestroyed) {
-            g.setColor(this.color);
-            g.fillRect(this.getX(), this.getY(), 64, 64);
+            if(image != null){
+                g.drawImage(image, x, y,new ImageObserver(){
+                    @Override
+                    public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height){
+                        return false;
+                    }
+                });
+            }
+            else{
+                g.setColor(this.color);
+                g.fillRect(this.getX(), this.getY(), 64, 64);
+            }
+        }
+    }
+
+    protected void setImage(String nameImg){
+        try{
+            File file=(new File(nameImg));
+            image= ImageIO.read(file);
+
+        }catch(IOException e){
+            System.out.println("Error! The picture "+nameImg+" is not loaded"+" "+e.getMessage());
+
         }
     }
 

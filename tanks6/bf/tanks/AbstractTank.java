@@ -4,7 +4,10 @@ package tanks6.bf.tanks;
 import tanks6.Direction;
 import tanks6.bf.*;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class AbstractTank implements Tank {
 
@@ -23,6 +26,11 @@ public class AbstractTank implements Tank {
     protected Color tankColor;
     protected Color towerColor;
 
+    protected Image tankTopImg;
+    protected Image tankBottomImg;
+    protected Image tankLeftImg;
+    protected Image tankRightImg;
+
 
     public AbstractTank(BattleField bf) {
         this(bf, 0, 512, Direction.TOP);
@@ -38,7 +46,7 @@ public class AbstractTank implements Tank {
 
     @Override
     public void draw(Graphics g) {
-        if (!destroyed) {
+        if (!destroyed && !this.drawImg(g)) {
             g.setColor(tankColor);
             g.fillRect(this.getX(), this.getY(), 64, 64);
 
@@ -53,6 +61,38 @@ public class AbstractTank implements Tank {
                 g.fillRect(this.getX() + 30, this.getY() + 20, 34, 24);
             }
         }
+    }
+
+
+    protected Image setImage(String nameImg){
+        Image image=null;
+        try{
+            File file=(new File(nameImg));
+            image= ImageIO.read(file);
+
+        }catch(IOException e){
+            System.out.println("Error! The picture "+nameImg+" is not loaded"+" "+e.getMessage());
+
+        }
+        return image;
+    }
+
+    private boolean drawImg(Graphics g){
+        if(tankBottomImg==null || tankTopImg==null || tankLeftImg==null || tankRightImg==null){
+            return false;
+        }
+        else{
+            if (this.getDirection() == Direction.RIGHT) {
+                g.drawImage(tankRightImg, getX(), getY(), null);
+            } else if (this.getDirection() == Direction.TOP) {
+                g.drawImage(tankTopImg, getX(), getY(), null);
+            } else if (this.getDirection() == Direction.BOTTOM) {
+                g.drawImage(tankBottomImg, getX(), getY(), null);
+            } else {
+                g.drawImage(tankLeftImg, getX(), getY(), null);
+            }
+        }
+        return true;
     }
 
     public void turn(Direction direction) {
@@ -151,15 +191,15 @@ public class AbstractTank implements Tank {
         BFObject bfObject=bf.scanQuadrant(v,h);
 
         if(bfObject instanceof Blank || bfObject.isDestroyed()){
-            System.out.println("move "+v+" "+h);
+            //System.out.println("move "+v+" "+h);
             return Action.MOVE;
         }
         if(bfObject instanceof Brick || bfObject instanceof Eagle || bfObject instanceof Rock){
-            System.out.println("fire "+v+" "+h);
+            //System.out.println("fire "+v+" "+h);
             return Action.FIRE;
         }
 
-        System.out.println("none "+v+" "+h);
+        //System.out.println("none "+v+" "+h);
         return Action.NONE;
     }
 

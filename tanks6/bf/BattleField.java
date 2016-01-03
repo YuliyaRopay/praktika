@@ -21,15 +21,15 @@ public class BattleField implements Drawable{
     private int bfHeight = QUADRANT_SIZE*QUADRANT_COUNT_Y;
 
     private String[][] battleFieldTemplate = {
-            {" ", "W", "W", "B", "B", "B", "B", "B", "B"},
+            {" ", "W", " ", " ", "B", "B", "B", "B", "B"},
             {" ", " ", " ", "W", " ", " ", " ", " ", "B"},
-            {" ", "B", "B", " ", "B", " ", "B", "B", "R"},
-            {"R", " ", " ", " ", " ", " ", "B", "B", "B"},
-            {" ", "B", "B", " ", "B", " ", "B", "B", "B"},
+            {" ", "B", "B", " ", "B", " ", "B", "W", "R"},
+            {"R", " ", " ", " ", " ", " ", "B", " ", " "},
+            {" ", "B", "B", " ", "B", " ", "W", "B", "B"},
             {" ", "B", " ", "B", "B", "B", " ", " ", "B"},
-            {"W", "B", " ", " ", " ", " ", "B", "B", "B"},
-            {" ", "B", " ", "B", "W", "E", " ", " ", "B"},
-            {" ", " ", " ", "B", "B", " ", " ", " ", " "}
+            {"W", "B", " ", " ", "W", " ", "B", "B", "B"},
+            {" ", "B", " ", "B", " ", " ", " ", " ", "B"},
+            {" ", " ", " ", "B", "E", " ", " ", " ", " "}
     };
 
     private BFObject[][] battleField = new BFObject[QUADRANT_COUNT_X][QUADRANT_COUNT_Y];
@@ -121,6 +121,10 @@ public class BattleField implements Drawable{
     //
 	public BFObject scanQuadrant(int v, int h) {
         //System.out.println("scanQ "+battleField[v][h].isDestroyed());
+        if(v<0 || v>=QUADRANT_COUNT_Y || h<0 || h>QUADRANT_COUNT_X){
+            return null;
+        }
+
         return battleField[v][h];
 	}
 
@@ -142,6 +146,7 @@ public class BattleField implements Drawable{
         int i=r.nextInt(3);
 
         return aggressorPosition[i];
+        //return 4*64+"_"+3*64;
 	}
 
     //

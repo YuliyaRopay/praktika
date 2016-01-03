@@ -2,7 +2,7 @@ package tanks6;
 
 public enum Direction {
 
-    NONE(0), TOP(1), BOTTOM(2), LEFT(3), RIGHT(4);
+    NONE(0), RIGHT(1), LEFT(2), BOTTOM(3), TOP(4);
 
     private int id;
     private Direction(int id){
