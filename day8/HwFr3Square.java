@@ -18,7 +18,7 @@ public class HwFr3Square extends JPanel {
 
     public HwFr3Square(){
         JFrame frame=new JFrame();
-        frame.setLocation(100,100);
+        frame.setLocation(100,200);
         frame.setMinimumSize(new Dimension(800,600));
 
         b=0;
